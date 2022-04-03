@@ -1,0 +1,75 @@
+## wget-DoS_LOOP
+
+redadmin@Jump-Box-Provisioner:~$ nano web_servers_list.txt
+10.1.0.5
+10.1.0.6
+10.1.0.7
+
+redadmin@Jump-Box-Provisioner:~$ for servers in $(cat web_servers_list.txt); do wget http://$servers; done
+--2022-04-01 17:11:32--  http://10.1.0.5/
+Connecting to 10.1.0.5:80... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: login.php [following]
+--2022-04-01 17:11:32--  http://10.1.0.5/login.php
+Reusing existing connection to 10.1.0.5:80.
+HTTP request sent, awaiting response... 200 OK
+Length: 1415 (1.4K) [text/html]
+Saving to: ‘index.html.1’
+
+index.html.1                                         100%[=====================================================================================================================>]   1.38K  --.-KB/s    in 0s
+
+2022-04-01 17:11:32 (155 MB/s) - ‘index.html.1’ saved [1415/1415]
+
+--2022-04-01 17:11:32--  http://10.1.0.6/
+Connecting to 10.1.0.6:80... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: login.php [following]
+--2022-04-01 17:11:32--  http://10.1.0.6/login.php
+Reusing existing connection to 10.1.0.6:80.
+HTTP request sent, awaiting response... 200 OK
+Length: 1415 (1.4K) [text/html]
+Saving to: ‘index.html.2’
+
+index.html.2                                         100%[=====================================================================================================================>]   1.38K  --.-KB/s    in 0s
+
+2022-04-01 17:11:32 (180 MB/s) - ‘index.html.2’ saved [1415/1415]
+
+--2022-04-01 17:11:32--  http://10.1.0.7/
+Connecting to 10.1.0.7:80... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: login.php [following]
+--2022-04-01 17:11:32--  http://10.1.0.7/login.php
+Reusing existing connection to 10.1.0.7:80.
+HTTP request sent, awaiting response... 200 OK
+Length: 1415 (1.4K) [text/html]
+Saving to: ‘index.html.3’
+
+index.html.3                                         100%[=====================================================================================================================>]   1.38K  --.-KB/s    in 0s
+
+2022-04-01 17:11:32 (185 MB/s) - ‘index.html.3’ saved [1415/1415]
+
+#Files saved with incremental number
+
+redadmin@Jump-Box-Provisioner:~$ ls -lrth
+total 52K
+-rw-rw-r-- 1 redadmin redadmin   27 Mar 29 02:29 web_servers_list.txt
+-rw-rw-r-- 1 redadmin redadmin 1.4K Mar 30 03:38 index.html
+drwx------ 3 redadmin redadmin 4.0K Apr  1 16:44 snap
+-rwxrwxr-x 1 redadmin redadmin  169 Apr  1 16:57 ssh_loop.sh
+-rw-rw-r-- 1 redadmin redadmin 1.4K Apr  1 17:11 index.html.1
+-rw-rw-r-- 1 redadmin redadmin 1.4K Apr  1 17:11 index.html.2
+-rw-rw-r-- 1 redadmin redadmin 1.4K Apr  1 17:11 index.html.3
+-rw-rw-r-- 1 redadmin redadmin 1.4K Apr  2 04:58 index.html.4
+-rw-rw-r-- 1 redadmin redadmin 1.4K Apr  2 04:58 index.html.5
+-rw-rw-r-- 1 redadmin redadmin 1.4K Apr  2 04:58 index.html.6
+-rw-rw-r-- 1 redadmin redadmin 1.4K Apr  2 04:58 index.html.7
+-rw-rw-r-- 1 redadmin redadmin 1.4K Apr  2 04:58 index.html.8
+-rw-rw-r-- 1 redadmin redadmin 1.4K Apr  2 04:58 index.html.9
+
+redadmin@Jump-Box-Provisioner:~$ rm index.html*
+
+redadmin@Jump-Box-Provisioner:~$ for servers in $(cat web_servers_list.txt); do wget http://$servers --directory-prefix=/tmp/; done
+
+redadmin@Jump-Box-Provisioner:~$ bash script_wget_loop.sh
+
+#See events results on folder Linux - wget-DoS_KIBANA_EVENTS.PNG

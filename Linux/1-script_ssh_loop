@@ -1,0 +1,6 @@
+#!/bin/bash
+for i in {1..999}; do
+        for servers in $(cat web_servers_list.txt); do
+                ssh $servers > /dev/null 2>&1
+        done
+done

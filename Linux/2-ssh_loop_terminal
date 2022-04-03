@@ -1,0 +1,18 @@
+## SSH_LOOP
+
+redadmin@Jump-Box-Provisioner:~$ nano web_servers_list.txt
+10.1.0.5
+10.1.0.6
+10.1.0.7
+
+redadmin@Jump-Box-Provisioner:~$ for servers in $(cat web_servers_list.txt); do echo "### $servers ###"; ssh $w ; done
+### 10.1.0.5 ###
+redadmin@10.1.0.7: Permission denied (publickey).
+### 10.1.0.6 ###
+redadmin@10.1.0.7: Permission denied (publickey).
+### 10.1.0.7 ###
+redadmin@10.1.0.7: Permission denied (publickey).
+
+redadmin@Jump-Box-Provisioner:~$ bash script_ssh_loop.sh
+
+#See events results on folder Linux - SSH_LOOP_KIBANA_EVENTS.PNG
