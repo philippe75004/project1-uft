@@ -8,9 +8,9 @@ We create on our Azure, 2 Security groups, 1 rule to allow from Internet Access 
 
 | Name     | Publicly Accessible | IP Addresses             |
 |----------|---------------------|--------------------------|
-| Jump-Box-Provisioner Yes       | 10.1.0.4 /20.124.236.227 |
+| Jump-Box-Provisioner | Yes       | 10.1.0.4 /20.124.236.227 |
 | ELK      |           Yes       | 10.2.0.4 /20.122.48.236  |
-| LoadBalancer         Yes       |20.25.9.111               |
+| LoadBalancer       | Yes       |20.25.9.111               |
 | Web1     |           No        | 10.1.0.5 /20.25.9.111    |
 | Web2     |           No        | 10.1.0.6 /20.25.9.111    |
 | Web3     |           No        | 10.1.0.7 /20.25.9.111    |
